@@ -20,15 +20,17 @@ type nullTestValue interface {
 }
 
 type nullTest struct {
-	new  func() nullTestValue
-	v    nullTestValue
-	json string
-	text string
-	xml  string
+	new       func() nullTestValue
+	jsonValue nullTestValue
+	json      string
+	textValue nullTestValue
+	text      string
+	xmlValue  nullTestValue
+	xml       string
 }
 
 func nullTestMarshalJSON(t *testing.T, tt nullTest) {
-	got, err := json.Marshal(tt.v)
+	got, err := json.Marshal(tt.jsonValue)
 	if err != nil {
 		t.Error(err)
 	}
@@ -42,13 +44,13 @@ func nullTestUnmarshalJSON(t *testing.T, tt nullTest) {
 	if err := json.Unmarshal([]byte(tt.json), got); err != nil {
 		t.Error(err)
 	}
-	if !reflect.DeepEqual(got, tt.v) {
-		t.Errorf("got %v; expected %v", got, tt.v)
+	if !reflect.DeepEqual(got, tt.jsonValue) {
+		t.Errorf("got %v; expected %v", got, tt.jsonValue)
 	}
 }
 
 func nullTestMarshalText(t *testing.T, tt nullTest) {
-	got, err := tt.v.MarshalText()
+	got, err := tt.textValue.MarshalText()
 	if err != nil {
 		t.Error(err)
 	}
@@ -62,13 +64,13 @@ func nullTestUnmarshalText(t *testing.T, tt nullTest) {
 	if err := got.UnmarshalText([]byte(tt.text)); err != nil {
 		t.Error(err)
 	}
-	if !reflect.DeepEqual(got, tt.v) {
-		t.Errorf("got %v; expected %v", got, tt.v)
+	if !reflect.DeepEqual(got, tt.textValue) {
+		t.Errorf("got %v; expected %v", got, tt.textValue)
 	}
 }
 
 func nullTestMarshalXML(t *testing.T, tt nullTest) {
-	got, err := xml.Marshal(tt.v)
+	got, err := xml.Marshal(tt.xmlValue)
 	if err != nil {
 		t.Error(err)
 	}
@@ -82,8 +84,8 @@ func nullTestUnmarshalXML(t *testing.T, tt nullTest) {
 	if err := xml.Unmarshal([]byte(tt.xml), got); err != nil {
 		t.Error(err)
 	}
-	if !reflect.DeepEqual(got, tt.v) {
-		t.Errorf("got %v; expected %v", got, tt.v)
+	if !reflect.DeepEqual(got, tt.xmlValue) {
+		t.Errorf("got %v; expected %v", got, tt.xmlValue)
 	}
 }
 
