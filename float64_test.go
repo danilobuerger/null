@@ -12,9 +12,9 @@ func float64NullValue() nullTestValue {
 
 func TestFloat64(t *testing.T) {
 	tests := []nullTest{
-		{float64NullValue, float64NullValue(), "null", "", "<Float64 xsi:nil=\"true\"></Float64>"},
-		{float64NullValue, NewFloat64Ptr(0.0), "0", "0", "<Float64>0</Float64>"},
-		{float64NullValue, NewFloat64Ptr(1.12), "1.12", "1.12", "<Float64>1.12</Float64>"},
+		{float64NullValue, float64NullValue(), `null`, ``, `<Float64 xsi:nil="true"></Float64>`},
+		{float64NullValue, NewFloat64Ptr(0.0), `0`, `0`, `<Float64>0</Float64>`},
+		{float64NullValue, NewFloat64Ptr(1.12), `1.12`, `1.12`, `<Float64>1.12</Float64>`},
 	}
 
 	nullTestRun(t, tests)
