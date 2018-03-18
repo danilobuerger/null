@@ -82,10 +82,7 @@ func (f Float64) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		if err := e.EncodeToken(start); err != nil {
 			return err
 		}
-		if err := e.EncodeToken(start.End()); err != nil {
-			return err
-		}
-		return nil
+		return e.EncodeToken(start.End())
 	}
 	return e.EncodeElement(f.Float64, start)
 }
