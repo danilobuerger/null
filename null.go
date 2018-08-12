@@ -4,7 +4,10 @@ package null
 
 import "encoding/xml"
 
-const jsonNull = "null"
+const (
+	jsonNull     = "null"
+	xsiNamespace = "http://www.w3.org/2001/XMLSchema-instance"
+)
 
 var xsiNilAttr = xml.Attr{
 	Name:  xml.Name{Local: "xsi:nil"},
@@ -12,5 +15,6 @@ var xsiNilAttr = xml.Attr{
 }
 
 func isXsiNilAttr(attr xml.Attr) bool {
-	return attr.Name.Space == "xsi" && attr.Name.Local == "nil" && attr.Value == "true"
+	return (attr.Name.Space == "xsi" || attr.Name.Space == xsiNamespace) &&
+		attr.Name.Local == "nil" && attr.Value == "true"
 }
